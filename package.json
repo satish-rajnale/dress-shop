@@ -21,6 +21,5 @@
   "homepage": "https://github.com/jrussumbrella/dress-shop#readme",
   "devDependencies": {
     "concurrently": "^5.2.0"
-  },
-  "dependencies": {}
+  }
 }

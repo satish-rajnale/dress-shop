@@ -12,32 +12,7 @@ export const index = async (req: Request, res: Response) => {
       .populate("items.product")
       .sort("-createdAt");
     res.status(200).json({
-      data: {
-        _id: "629b977e9905320009b1087d",
-        user: "629b977a9905320009b1087c",
-        items: [
-          {
-            quantity: 1,
-            _id: "629b977e9905320009b1087e",
-            product: {
-              _id: "5e3e86e9f4a19c0417b8daf1",
-              name: "Only Check Trouser",
-              price: 800,
-              description:
-                "Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.",
-              imageURL:
-                "https://res.cloudinary.com/djlbfjouc/image/upload/v1581156071/o4rfktvywje4qbks9lkl.jpg",
-              category: "men",
-              createdAt: "2020-02-08T10:01:13.626Z",
-              updatedAt: "2020-02-08T10:01:13.626Z",
-              __v: 0,
-            },
-          },
-        ],
-        createdAt: "2022-06-04T17:33:50.593Z",
-        updatedAt: "2022-06-04T17:33:50.593Z",
-        __v: 0,
-      },
+      data: cart,
     });
   } catch (error) {
     res.status(500).json({ message: "Error in getting cart" });
@@ -60,7 +35,7 @@ export const store = async (req: Request, res: Response) => {
       }
 
       const isProductExist = cart?.items.some((item) =>
-        ObjectId(productId).equals(item.product)
+        productId.equals(item.product)
       );
 
       if (isProductExist) {
@@ -83,9 +58,7 @@ export const store = async (req: Request, res: Response) => {
       });
     }
 
-    const cartItem = cart?.items.find((item) =>
-      ObjectId(productId).equals(item.product)
-    );
+    const cartItem = cart?.items.find((item) => productId.equals(item.product));
 
     res.status(200).json({ data: cartItem });
   } catch (error) {
@@ -135,9 +108,7 @@ export const update = async (req: Request, res: Response) => {
       });
     }
 
-    const cartItem = cart?.items.find((item) =>
-      ObjectId(productId).equals(item.product)
-    );
+    const cartItem = cart?.items.find((item) => productId.equals(item.product));
 
     return res.status(200).json({ data: cartItem });
   } catch (error) {

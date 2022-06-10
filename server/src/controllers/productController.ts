@@ -38,32 +38,8 @@ export const show = async (req: Request, res: Response) => {
 
     res.status(200).json({
       data: {
-        product: {
-          _id: "5e3e8eabf4a19c0417b8dafc",
-          name: "Long Sleeves Polka Dots",
-          price: 900,
-          description:
-            "Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.",
-          imageURL:
-            "https://res.cloudinary.com/djlbfjouc/image/upload/v1581158167/sbiuoziiqi5gkuvrsymv.jpg",
-          category: "women",
-          createdAt: "2020-02-08T10:36:09.862Z",
-          updatedAt: "2020-02-08T10:36:09.862Z",
-        },
-        relatedProducts: [
-          {
-            _id: "5e3e8eabf4a19c0417b8dafc",
-            name: "Long Sleeves Polka Dots",
-            price: 900,
-            description:
-              "Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.",
-            imageURL:
-              "https://res.cloudinary.com/djlbfjouc/image/upload/v1581158167/sbiuoziiqi5gkuvrsymv.jpg",
-            category: "women",
-            createdAt: "2020-02-08T10:36:09.862Z",
-            updatedAt: "2020-02-08T10:36:09.862Z",
-          },
-        ],
+        product: product,
+        relatedProducts: relatedProducts,
       },
     });
   } catch (error) {

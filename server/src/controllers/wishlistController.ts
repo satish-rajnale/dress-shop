@@ -1,16 +1,14 @@
-import { Request, Response } from 'express';
-import { Wishlist } from '../models';
-import { User as UserTypes } from '../types';
+import { Request, Response } from "express";
+import { Wishlist } from "../models";
+import { User as UserTypes } from "../types";
 
 export const index = async (req: Request, res: Response) => {
   try {
     const user = req.user as UserTypes;
-    const wishlist = await Wishlist.find({ user: user._id }).populate(
-      'product'
-    );
+    const wishlist = await Wishlist.find({ user: user._id });
     res.status(200).json({ data: wishlist });
   } catch (error) {
-    res.status(500).json({ message: 'Error in getting wishlist' });
+    res.status(500).json({ message: "Error in getting wishlist" });
   }
 };
 
@@ -26,15 +24,15 @@ export const store = async (req: Request, res: Response) => {
     if (wishlist) {
       return res
         .status(409)
-        .json({ message: 'Product is already in  wishlist' });
+        .json({ message: "Product is already in  wishlist" });
     }
 
     wishlist = await Wishlist.create({ product: productId, user: user._id });
-    wishlist = await wishlist.populate('product').execPopulate();
+    wishlist = await wishlist.populate("product");
 
     res.status(200).json({ data: wishlist });
   } catch (error) {
-    res.status(500).json({ message: 'Error in adding wishlist' });
+    res.status(500).json({ message: "Error in adding wishlist" });
   }
 };
 
@@ -50,13 +48,13 @@ export const destroy = async (req: Request, res: Response) => {
     if (!wishlist) {
       return res
         .status(409)
-        .json({ message: 'Product is not in your  wishlist' });
+        .json({ message: "Product is not in your  wishlist" });
     }
 
     await wishlist.remove();
 
     res.status(200).json({ data: null });
   } catch (error) {
-    res.status(500).json({ message: 'Error in adding wishlist' });
+    res.status(500).json({ message: "Error in adding wishlist" });
   }
 };

@@ -18,7 +18,7 @@ import {
 import { PORT } from "./config";
 import passport from "passport";
 import bodyParser from "body-parser";
-import { seed } from "../seed";
+// import { seed } from "../seed";
 
 // initialize passport
 require("./lib/passport");
@@ -48,7 +48,7 @@ const start = async () => {
   app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
   });
-  seed();
+  // seed();
 };
 
 start();

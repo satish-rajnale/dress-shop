@@ -25,7 +25,7 @@ const WishlistButton = ({ productId }: Props) => {
 
   const { setToast } = useToast();
 
-  const isProductInWishlist = data?.some((wishlistItem) => wishlistItem.product._id === productId);
+  const isProductInWishlist = data?.some((wishlistItem) => wishlistItem.product === productId);
 
   const handleWishlistChange = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
