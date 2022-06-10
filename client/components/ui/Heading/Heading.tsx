@@ -1,8 +1,9 @@
+import { CommonProps } from '@/types/Common';
 import React from 'react';
 
 import styles from './Heading.module.css';
 
-interface Props {
+interface Props extends CommonProps {
   className?: 'string';
 }
 
