@@ -1,5 +1,5 @@
 import Router, { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleLogin as GoogleLoginLib } from 'react-google-login';
 
 import { IconGoogle } from '@/components/icons';
@@ -23,7 +23,7 @@ const GoogleLogin = () => {
   const handleOnSuccess = async (response: any): Promise<void> => {
     try {
       setIsLoggingIn(true);
-      const tokenId = response.tokenId;
+      const tokenId = response.credential;
       await googleLogin(tokenId);
       setIsLoggingIn(false);
       if (ref) {
@@ -38,33 +38,33 @@ const GoogleLogin = () => {
     }
   };
 
-  const handleOnFailure = (response: GoogleError) => {
-    if (response.error === 'popup_closed_by_user') return;
-    setToast('error', response.details);
-  };
-
+  useEffect(() => {
+    new (window as any).google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: handleOnSuccess,
+    });
+    new (window as any).google.accounts.id.prompt((notification: any) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        // try next provider if OneTap is not displayed or skipped
+      }
+    });
+    (window as any).google.accounts.id.renderButton(
+      document.getElementById('googleButton'),
+      { theme: 'outline', size: 'large' } // customization attributes
+    );
+  }, []);
   return (
     <>
       {isLoggingIn && <PageLoader />}
-      <div className="container">
-        <GoogleLoginLib
-          clientId={GOOGLE_CLIENT_ID}
-          buttonText="Login"
-          onSuccess={handleOnSuccess}
-          onFailure={handleOnFailure}
-          cookiePolicy={'single_host_origin'}
-          render={(renderProps) => (
-            <Button
-              type="button"
-              onClick={renderProps.onClick}
-              disabled={renderProps.disabled}
-              icon={<IconGoogle />}
-              title="Login with Google"
-              variant="light"
-              style={{ width: '100%' }}
-            />
-          )}
-        />
+      <div
+        className="container"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div id="googleButton"></div>
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
 import { Toast } from '@/components/ui';
+import { CommonProps } from '@/types/Common';
 
 interface Context {
   isActive: boolean;
@@ -13,7 +14,7 @@ interface Context {
 export const ToastContext = createContext<Context | undefined>(undefined);
 ToastContext.displayName = 'ToastContext';
 
-export const ToastProvider: React.FC = ({ children }) => {
+export const ToastProvider: React.FC<CommonProps> = ({ children }) => {
   const initialState = {
     isActive: false,
     type: '',

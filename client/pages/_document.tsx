@@ -24,6 +24,7 @@ class MyDocument extends Document {
             type="text/css"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
           />
+          <script src="https://accounts.google.com/gsi/client" async defer></script>
         </Head>
         <body>
           <Main />
