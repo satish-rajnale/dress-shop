@@ -11,20 +11,13 @@
     "prepare": "cd .. && husky install client/.husky",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts|tsx)\"",
     "format": "npm run prettier -- --write",
-    "check-types": "tsc --project tsconfig.json --pretty --noEmit",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
-    "validate": "npm-run-all --parallel check-types && lint-staged",
     "cypres:install": "cypress install",
     "cypress:run": "cypress run",
     "cypress:open": "cypress open"
   },
-  "lint-staged": {
-    "*.+(ts|tsx)": [
-      "npm run lint:fix",
-      "npm run test"
-    ]
-  },
+ 
   "dependencies": {
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.8.0",

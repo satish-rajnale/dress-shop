@@ -45,3 +45,13 @@
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }]
   }
 }
+
+    // "validate": "npm-run-all --parallel check-types && lint-staged",
+    // "check-types": "tsc --project tsconfig.json --pretty --noEmit",
+
+// "lint-staged": {
+//   "*.+(ts|tsx)": [
+//     "npm run lint:fix",
+//     "npm run test"
+//   ]
+// },
