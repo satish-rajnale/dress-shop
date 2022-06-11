@@ -1,16 +1,16 @@
-import { ProductDocument } from './Product';
-import { UserDocument } from './User';
-import { Schema, model, Document } from 'mongoose';
+import { ProductDocument } from "./Product";
+import { UserDocument } from "./User";
+import { Schema, model, Document } from "mongoose";
 
 const { ObjectId, Number } = Schema.Types;
 
 interface Items {
   quantity: number;
-  product: ProductDocument['_id'];
+  product: ProductDocument["_id"];
 }
 
 export interface CartDocument extends Document {
-  user: UserDocument['_id'];
+  user: UserDocument["_id"];
   items: Items[];
 }
 
@@ -18,7 +18,7 @@ const CartSchema = new Schema(
   {
     user: {
       type: ObjectId,
-      ref: 'User',
+      ref: "User",
     },
     items: [
       {
@@ -28,7 +28,7 @@ const CartSchema = new Schema(
         },
         product: {
           type: ObjectId,
-          ref: 'Product',
+          ref: "Product",
         },
       },
     ],
@@ -38,4 +38,4 @@ const CartSchema = new Schema(
   }
 );
 
-export const Cart = model<CartDocument>('Cart', CartSchema);
+export const Cart = model<CartDocument>("Cart", CartSchema);

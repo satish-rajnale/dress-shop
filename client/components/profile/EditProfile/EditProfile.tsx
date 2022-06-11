@@ -12,7 +12,7 @@ import styles from './EditProfile.module.css';
 interface InitialState {
   name: string;
   email: string;
-  image: string | ArrayBuffer | null;
+  image: string | any | null;
 }
 
 const EditProfile = () => {
@@ -51,7 +51,7 @@ const EditProfile = () => {
       setUpdating(false);
     }
   };
-
+  console.log(userInfo);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFile = e.target.files[0];
@@ -76,10 +76,12 @@ const EditProfile = () => {
 
   const imageChange = (file: Blob) => {
     const reader = new FileReader();
+    reader.readAsDataURL(file);
+
     reader.onloadend = () => {
+      console.log(reader);
       setUserInfo({ ...userInfo, image: reader.result });
     };
-    reader.readAsDataURL(file);
   };
 
   const pageLoaderElement = updating && <PageLoader />;
@@ -91,8 +93,9 @@ const EditProfile = () => {
         <div className={styles.userPictureContainer}>
           <div className={styles.userAvatar}>
             {userInfo.image ? (
-              <div style={{ backgroundImage: `url(${userInfo.image})` }} className="image" />
+              <img id="blah" src={userInfo.image} alt="your image" />
             ) : (
+              // <div style={{ backgroundImage: `url(${userInfo.image})` }} className="image" />
               <>
                 {currentUser?.imageURL ? (
                   <div
@@ -111,6 +114,7 @@ const EditProfile = () => {
           </div>
           <div className={styles.uploadContainer}>
             <input type="file" onChange={handleChange} accept="image/x-png,image/jpeg" />
+
             <Button type="button" title="Change Photo" text />
           </div>
         </div>

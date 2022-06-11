@@ -4,17 +4,21 @@ import { User as UserTypes } from "../types";
 import mongoose from "mongoose";
 
 const { ObjectId } = mongoose.Types;
-
+function getObjectId(str: string) {
+  return new mongoose.Types.ObjectId();
+}
 export const index = async (req: Request, res: Response) => {
   try {
     const user = req.user as UserTypes;
     const cart = await Cart.findOne({ user: user._id })
       .populate("items.product")
-      .sort("-createdAt");
+      .sort("-createdAt")
+      .exec();
     res.status(200).json({
       data: cart,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Error in getting cart" });
   }
 };
@@ -35,7 +39,8 @@ export const store = async (req: Request, res: Response) => {
       }
 
       const isProductExist = cart?.items.some((item) =>
-        productId.equals(item.product)
+        /*@ts-ignore*/
+        ObjectId(productId).equals(item.product)
       );
 
       if (isProductExist) {
@@ -58,10 +63,14 @@ export const store = async (req: Request, res: Response) => {
       });
     }
 
-    const cartItem = cart?.items.find((item) => productId.equals(item.product));
+    const cartItem = cart?.items.find((item) =>
+      /*@ts-ignore*/
+      ObjectId(productId).equals(item.product)
+    );
 
     res.status(200).json({ data: cartItem });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Error in creating cart" });
   }
 };
@@ -108,7 +117,10 @@ export const update = async (req: Request, res: Response) => {
       });
     }
 
-    const cartItem = cart?.items.find((item) => productId.equals(item.product));
+    const cartItem = cart?.items.find((item) =>
+      /*@ts-ignore*/
+      ObjectId(productId).equals(item.product)
+    );
 
     return res.status(200).json({ data: cartItem });
   } catch (error) {

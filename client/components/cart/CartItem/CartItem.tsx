@@ -11,6 +11,7 @@ import { CartItem as CartItemType } from '@/types';
 import formatPrice from '@/utils/formatPrice';
 
 import styles from './CartItem.module.css';
+import { AiFillDelete } from 'react-icons/ai';
 
 interface Props {
   cartItem: CartItemType;
@@ -102,12 +103,16 @@ const CartItem = ({ cartItem }: Props) => {
         </div>
 
         <div className={styles.productInfo}>
-          <div className={styles.productName}>
-            <Link href={`/products/${cartItem.product._id}`}>
-              <a>{cartItem.product.name}</a>
-            </Link>
+          <div className={styles.directionColumn}>
+            <div className={styles.productName}>
+              <Link href={`/products/${cartItem.product._id}`}>
+                <a>{cartItem.product.name}</a>
+              </Link>
+            </div>
+            <div className={styles.productDescription}>
+              <p>{cartItem.product.description}</p>
+            </div>
           </div>
-
           <div
             className={`${styles.productPrice} ${styles.productContent}`}
             aria-label="Product price"
@@ -133,7 +138,7 @@ const CartItem = ({ cartItem }: Props) => {
           </p>
           <div className={styles.productAction}>
             <button className={styles.btnCartAction} onClick={handleRemoveCart}>
-              Delete
+              <AiFillDelete fontSize={25} />
             </button>
           </div>
         </div>
