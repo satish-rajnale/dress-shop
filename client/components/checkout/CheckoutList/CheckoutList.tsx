@@ -14,6 +14,20 @@ interface Props {
 const CheckoutList = ({ items }: Props) => {
   return (
     <>
+      <div style={{ paddingLeft: '10px' }}>
+        <div className={styles.info}>
+          <div className={styles.main}>
+            <p className={styles.productName}>Product</p>
+          </div>
+
+          <div className={styles.content}>
+            <div>Price</div>
+          </div>
+          <div className={styles.content} style={{ textAlign: 'right' }}>
+            <div>Total Price</div>
+          </div>
+        </div>
+      </div>
       {items.map((item) => (
         <div key={item._id} className={styles.itemContainer}>
           <div className={styles.info}>

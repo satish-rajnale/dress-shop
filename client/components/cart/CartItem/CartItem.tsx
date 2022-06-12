@@ -57,7 +57,7 @@ const CartItem = ({ cartItem }: Props) => {
   };
 
   const handleBtnChangeQty = (action: string) => {
-    if (qty >= 10) {
+    if (qty >= 10 && action === 'add') {
       setToast('error', 'Ops you can add to cart up to 10 max only');
       return;
     }
